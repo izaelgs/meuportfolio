@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
+import bcrypt from 'bcrypt';
 
 const userSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -20,12 +21,15 @@ export default async function handler(
 
     const { name, email, password } = parseResult.data;
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     try {
       const user = await prisma.user.create({
         data: {
           name,
           email,
-          password,
+          password: hashedPassword,
+          googleId: "",
         },
       });
 
