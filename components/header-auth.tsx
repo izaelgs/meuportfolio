@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
+import { SessionProvider, signOut, useSession } from "next-auth/react";
 
 export default function AuthButton() {
 	const { data: session } = useSession();
@@ -11,10 +9,10 @@ export default function AuthButton() {
 		<SessionProvider session={session}>
 			{session ? (
 				<div className="flex items-center gap-4">
-					Hey, {session.user?.email}!
+					Olá, {session.user?.name?.split(" ")[0]}!
 					<form action={() => signOut()}>
 						<Button type="submit" variant={"outline"}>
-							Sign out
+							Sair
 						</Button>
 					</form>
 				</div>
@@ -23,12 +21,11 @@ export default function AuthButton() {
 					<Button
 						asChild
 						size="sm"
-						variant={"outline"}
-						onClick={() => signIn()}>
-						<Link href="#">Sign in</Link>
+						variant={"outline"}>
+						<Link href="/sign-in">Entrar</Link>
 					</Button>
 					<Button asChild size="sm" variant={"default"}>
-						<Link href="/sign-up">Sign up</Link>
+						<Link href="/sign-up">Cadastrar</Link>
 					</Button>
 				</div>
 			)}

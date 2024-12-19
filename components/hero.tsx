@@ -1,44 +1,27 @@
-import NextLogo from "./next-logo";
-import SupabaseLogo from "./supabase-logo";
+import Link from "next/link";
 
-export default function Header() {
-  return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
-      </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
-  );
+export default function Hero() {
+	return (
+		<div className="relative isolate px-6 pt-14 lg:px-8">
+			<div className="text-center">
+				<h1 className="text-white text-5xl font-semibold tracking-tight sm:text-7xl">
+					{/* Surprise your clients or recruiters with an amazing presentation */}
+					Surpreenda seus clientes ou recrutadores com uma apresentação incrível
+				</h1>
+				<p className="mt-8 text-gray-300 text-lg font-medium sm:text-xl/8">
+					Não deixe seu currículo ser apenas outro documento chato. Faça ele se destacar com um design moderno e profissional em minutos.
+				</p>
+				<div className="mt-10 flex items-center justify-center gap-x-6">
+					<Link
+						href="/create-portfolio"
+						className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+						Começar
+					</Link>
+					<Link href="#how-it-works" className="text-sm/6 font-semibold text-white">
+						Saiba mais <span aria-hidden="true">→</span>
+					</Link>
+				</div>
+			</div>
+		</div>
+	);
 }
