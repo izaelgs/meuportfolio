@@ -1,6 +1,6 @@
 "use client";
 
-import { signUpAction } from "@/app/actions";
+import { signUpAction } from "@/app/actions/auth";
 import { FormMessage, Message } from "@/components/form-message";
 import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
@@ -49,7 +49,7 @@ export default function Signup(props: { searchParams: Promise<Message> }) {
 				throw new Error("Erro desconhecido");
 			}
 
-			router.push("/dashboard");
+			router.push("/dashboard/create-portfolio");
 		} catch (error) {
 			console.error(error);
 			setSearchParams({ message: "Erro ao criar usuário" });
@@ -82,6 +82,7 @@ export default function Signup(props: { searchParams: Promise<Message> }) {
 					<SubmitButton formAction={handleSubmit} pendingText="Cadastrando...">
 						Cadastrar
 					</SubmitButton>
+					<SubmitButton pendingText="Cadastrando..." type="button" onClick={() => signIn("google", {callbackUrl: "/dashboard/create-portfolio"})}>Cadastrar com Google</SubmitButton>
 					<FormMessage message={searchParams} />
 				</div>
 			</form>

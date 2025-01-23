@@ -27,7 +27,7 @@ export default NextAuth({
 
           const { email, password } = parseResult.data;
           const user = await prisma.user.findFirst({ where: { email } });
-          console.log('compare', await bcrypt.compare(password, user?.password || ''), user?.password, password)
+
           if (user && (await bcrypt.compare(password, user.password))) {
             return user;
           } else {
@@ -65,4 +65,10 @@ export default NextAuth({
     })
 
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: '/sign-in',
+    signOut: '/sign-out',
+    newUser: '/sign-in',
+  }
 })

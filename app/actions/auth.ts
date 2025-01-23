@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { UnauthorizedException } from "@/utils/exceptions";
 import bcrypt from 'bcrypt';
-import { userSchema } from "../pages/api/users";
+import { userSchema } from "../../pages/api/users";
 
 export const signUpAction = async (formData: FormData) => {
   try {

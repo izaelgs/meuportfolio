@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,9 +11,60 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  name  String
-  email String
-  password String
-  googleId String
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String      @unique
+  password   String
+  googleId   String?
+  portfolios Portfolio[]
+}
+
+model Portfolio {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String       @db.ObjectId
+  presentationName String
+  slug             String
+  whatsapp         String?
+  telephone        String?
+  email            String?
+  profession       String?
+  experiences      Experience[]
+  skills           Skill[]
+  projects         Project[]
+  contact          ContactInfo
+  customTexts      Json         // Campo para textos personalizados (JSON flexível)
+  User             User         @relation(fields: [userId], references: [id])
+}
+
+type Experience {
+  jobTitle    String
+  company     String
+  duration    String
+  description String?
+  link        String?
+}
+
+type Skill {
+  skill       String
+  description String?
+}
+
+type Project {
+  title       String
+  description String?
+  link        String?
+}
+
+type ContactInfo {
+  whatsapp    String?
+  telephone   String?
+  email       String?
+  github      String?
+  behance     String?
+  linkedin    String?
+  twitter     String?
+  instagram   String?
+  facebook    String?
+  state       String?
+  city        String?
 }

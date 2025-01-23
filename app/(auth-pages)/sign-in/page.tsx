@@ -50,40 +50,39 @@ export default function Login(props: { searchParams: Promise<Message> }) {
 	useEffect(() => {
 		const fetchSearchParams = async () => {
 			const params = await props.searchParams;
-			console.log("params", params);
 			setSearchParams(params);
 		};
 		fetchSearchParams();
 	}, [props.searchParams]);
 
 	return (
-		<form className="flex-1 flex flex-col min-w-64" onSubmit={handleSubmit}>
-			<h1 className="text-2xl font-medium">Sign in</h1>
+		<form className="flex flex-col min-w-64 max-w-64 mx-auto" onSubmit={handleSubmit}>
+			<h1 className="text-2xl font-medium">Entrar</h1>
 			<p className="text-sm text-foreground">
-				Don&apos;t have an account?{" "}
+				Não tem uma conta?{" "}
 				<Link className="text-foreground font-medium underline" href="/sign-up">
-					Sign up
+					Cadastre-se
 				</Link>
 			</p>
 			<div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
 				<Label htmlFor="email">Email</Label>
-				<Input name="email" placeholder="you@example.com" required />
+				<Input name="email" placeholder="seu@email.com" required />
 				<div className="flex justify-between items-center">
-					<Label htmlFor="password">Password</Label>
+					<Label htmlFor="password">Senha</Label>
 					<Link
 						className="text-xs text-foreground underline"
 						href="/forgot-password">
-						Forgot Password?
+						Esqueceu sua senha?
 					</Link>
 				</div>
 				<Input
 					type="password"
 					name="password"
-					placeholder="Your password"
+					placeholder="Sua senha"
 					required
 				/>
-				<SubmitButton pendingText="Signing In...">Sign in</SubmitButton>
-				<SubmitButton pendingText="Signing In..." type="button" onClick={() => signIn("google")}>Sign in with Google</SubmitButton>
+				<SubmitButton pendingText="Entrando...">Entrar</SubmitButton>
+				<SubmitButton pendingText="Entrando..." type="button" onClick={() => signIn("google", {callbackUrl: "/dashboard"})}>Entrar com Google</SubmitButton>
 				<FormMessage message={searchParams} />
 			</div>
 		</form>
