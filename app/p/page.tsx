@@ -10,10 +10,11 @@ export const metadata = {
 	description: "O jeito mais fácil e rápido de ter seu portfólio online",
 };
 
-export default function Portfolio({ children }: { children: React.ReactNode }) {
+export default function Portfolio() {
 	return (
 		<html lang="en" className={GeistSans.className} suppressHydrationWarning>
-			{children}
+			<body className="w-full h-full scrollbar-minimal">
+			</body>
 		</html>
 	);
 }

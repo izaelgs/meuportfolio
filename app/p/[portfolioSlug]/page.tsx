@@ -41,10 +41,11 @@ interface CustomTexts {
 }
 
 export default async function CreatePortfolio({
-	params: { portfolioSlug },
+	params,
 }: {
-	params: { portfolioSlug: string };
+	params: Promise<{ portfolioSlug: string }>;
 }) {
+	const portfolioSlug = (await params).portfolioSlug;
 	const portfolio = await getPortfolioAction(portfolioSlug);
   const customTexts = portfolio?.customTexts as CustomTexts;
 
