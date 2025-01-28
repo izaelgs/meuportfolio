@@ -14,26 +14,46 @@ export const metadata = {
 	description: "O jeito mais fácil e rápido de ter seu portfólio online",
 };
 
+// Define the interface for customTexts
+interface CustomTexts {
+	PersonalPresentation?: {
+		formal?: string;
+		informal?: string;
+	};
+	MissionVisionValues?: {
+		mission?: string;
+		vision?: string;
+		values?: string;
+	};
+	CallToAction?: {
+		contact?: string;
+		hire?: string;
+	};
+	CuratedDescriptions?: {
+		experience?: string;
+		skills?: string;
+		projects?: string;
+	};
+	Testimonials?: {
+		client?: string;
+		colleague?: string;
+	};
+	Differentiation?: string;
+}
+
 export default async function CreatePortfolio({
 	params: { portfolioSlug },
 }: {
 	params: { portfolioSlug: string };
 }) {
 	const portfolio = await getPortfolioAction(portfolioSlug);
+  const customTexts = portfolio?.customTexts as CustomTexts;
 
 	return (
 		<html lang="en" className={GeistSans.className} suppressHydrationWarning>
 			<body className="w-full h-full scrollbar-minimal">
 				<nav className="fixed p-4 w-full bg-black/50 backdrop-blur">
 					<div className="relative">
-						<a
-							className="flex align-items-baseline w-1/3 hover:opacity-75 transition-opacity duration-300"
-							href="https://github.com/izaelgs"
-							target="_blank"
-							aria-label="Perfil do GitHub">
-							<i className="devicon-github-original" aria-hidden="true"></i>
-							<h1>/Izaelgs</h1>
-						</a>
 						<button
 							id="nav-toggle"
 							className="lg:hidden absolute right-4 top-1/2 -translate-y-1/2"
@@ -89,7 +109,7 @@ export default async function CreatePortfolio({
 						<div className="title rounded-4">
 							<h1>{portfolio?.presentationName}</h1>
 							<p className="font-semibold mb-4 opacity-75">
-								Ensure exceptional experiences for your users.
+								{customTexts?.PersonalPresentation?.informal || "Ensure exceptional experiences for your users."}
 							</p>
 							{portfolio?.whatsapp && (
 								<a
@@ -106,8 +126,7 @@ export default async function CreatePortfolio({
 					<section id="skills" className="text-center">
 						<h2 className="title appear">Skills</h2>
 						<p className="description appear">
-							A brief overview of my technical skills and expertise in various
-							technologies.
+							{customTexts?.CuratedDescriptions?.skills || "A brief overview of my technical skills and expertise in various technologies."}
 						</p>
 
 						{/* Tab Navigation */}
@@ -437,6 +456,7 @@ export default async function CreatePortfolio({
 					{/* Projects */}
 					<section id="projects" className="text-center">
 						<h2 className="title appear mb-4">Projects</h2>
+            <p>{customTexts?.CuratedDescriptions?.projects ?? 'Estou entusiasmado para iniciar novas colaborações e contribuir para o sucesso de futuras iniciativas.'}</p>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 							{/* Socialmarket */}
 							<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
