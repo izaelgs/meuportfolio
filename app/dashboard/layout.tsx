@@ -1,6 +1,5 @@
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "next-themes";
-import "../globals.css";
 import NavHome from "@/components/nav-home";
 
 const defaultUrl = process.env.VERCEL_URL

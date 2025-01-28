@@ -1,7 +1,6 @@
 import { getPortfolioAction } from "@/app/actions/portfolio";
 import Image from "next/image";
 import { GeistSans } from "geist/font/sans";
-import "../../globals.css";
 import "./index.css";
 
 const defaultUrl = process.env.VERCEL_URL
