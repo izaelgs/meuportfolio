@@ -5,20 +5,19 @@ export default function Hero() {
 		<div className="relative isolate px-6 pt-14 lg:px-8">
 			<div className="text-center">
 				<h1 className="dark:text-white text-5xl font-semibold tracking-tight sm:text-7xl">
-					{/* Surprise your clients or recruiters with an amazing presentation */}
-					Surpreenda seus clientes ou recrutadores com uma apresentação incrível
+					Portfólio profissional <span className="text-primary">criado por IA</span> em minutos
 				</h1>
-				<p className="mt-8 dark:text-gray-300 text-gray-700 text-lg font-medium sm:text-xl/8">
-					Não deixe seu currículo ser apenas outro documento chato. Faça ele se destacar com um design moderno e profissional em minutos.
+				<p className="mt-8 dark:text-gray-300 text-gray-700 text-xl max-w-2xl mx-auto">
+					Forneça informações básicas sobre você e nossa IA criará um portfólio impressionante que destaca suas habilidades e experiências de forma profissional.
 				</p>
 				<div className="mt-10 flex items-center justify-center gap-x-6">
 					<Link
 						href="/sign-up"
-						className="rounded-md bg-gray-900 dark:bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-white dark:text-gray-900 shadow-sm hover:bg-gray-800 dark:hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 dark:focus-visible:outline-gray-200">
-						Começar
+						className="rounded-md bg-primary px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+						Criar meu portfólio
 					</Link>
-					<Link href="#how-it-works" className="text-sm/6 font-semibold text-gray-900 dark:text-gray-100">
-						Saiba mais <span aria-hidden="true">→</span>
+					<Link href="#how-it-works" className="text-sm/6 font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-1">
+						Como funciona <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
 					</Link>
 				</div>
 			</div>
