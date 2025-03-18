@@ -1,26 +1,32 @@
 import Image from "next/image";
+import portfolio1 from "@/public/images/examples/portfolio1.webp";
+import preview1 from "@/public/images/examples/preview1.webp";
+import portfolio2 from "@/public/images/examples/portfolio2.jpg";
+import preview2 from "@/public/images/examples/preview2.jpg";
+import portfolio3 from "@/public/images/examples/portfolio3.jpg";
+import preview3 from "@/public/images/examples/preview3.jpg";
 
 const examples = [
   {
     id: 1,
     name: "Ana Silva",
     role: "Designer",
-    image: "/examples/portfolio1.webp",
-    preview: "/examples/preview1.webp",
+    image: portfolio1,
+    preview: preview1,
   },
   {
     id: 2,
     name: "Pedro Santos",
     role: "Desenvolvedor Web",
-    image: "/examples/portfolio2.jpg",
-    preview: "/examples/preview2.jpg",
+    image: portfolio2,
+    preview: preview2,
   },
   {
     id: 3,
     name: "Luiza Costa",
     role: "Fotógrafa",
-    image: "/examples/portfolio3.jpg",
-    preview: "/examples/preview3.jpg",
+    image: portfolio3,
+    preview: preview3,
   },
 ];
 
