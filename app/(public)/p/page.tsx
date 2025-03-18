@@ -14,6 +14,9 @@ export default function Portfolio() {
 	return (
 		<html lang="en" className={GeistSans.className} suppressHydrationWarning>
 			<body className="w-full h-full scrollbar-minimal">
+        <div className="flex flex-col gap-12 items-center">
+          <h1>Portfólio</h1>
+        </div>
 			</body>
 		</html>
 	);
