@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
 	return (
-		<div className="relative isolate px-6 pt-14 lg:px-8">
+		<div className="relative isolate px-6 pt-20 md:pt-40 lg:px-8 2xl:pt-64 2xl:pb-20">
 			<div className="text-center">
 				<h1 className="dark:text-white text-5xl font-semibold tracking-tight sm:text-7xl">
 					Portfólio profissional <span className="text-primary">criado por IA</span> em minutos

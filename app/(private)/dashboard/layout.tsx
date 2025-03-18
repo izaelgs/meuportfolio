@@ -23,8 +23,7 @@ export default async function Layout({
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange>
+					enableSystem>
 					<main className="min-h-screen flex flex-col items-center">
 						<div className="flex-1 w-full flex flex-col gap-12 items-center">
 							<NavHome />
