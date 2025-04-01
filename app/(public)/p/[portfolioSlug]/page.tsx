@@ -107,14 +107,14 @@ export default async function PortfolioPage({
 								className="ring-2 ring-orange-900 hover:ring-orange-400 font-semibold hover:bg-orange-400 rounded-full px-4 py-2 transition-all duration-300 opacity-75"
 								href={`https://api.whatsapp.com/send/?phone=${portfolio?.whatsapp}&text&type=phone_number&app_absent=0`}
 								target="_blank">
-								Get in Touch!
+								{customTexts?.CallToAction?.contact || 'Get in Touch!'}
 							</a>
 						)}
 					</div>
 				</section>
 
 				{/* Skills Section */}
-				<SkillTabs customText={customTexts?.CuratedDescriptions} />
+				<SkillTabs customText={customTexts?.CuratedDescriptions} skills={portfolio?.skills || []} />
 
 				{/* Projects */}
 				<section id="projects" className="text-center">

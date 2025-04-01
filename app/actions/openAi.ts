@@ -19,6 +19,9 @@ export const getPortfolioCustomTextsFromOpenAi = async (portfolioSlug: string) =
     Generate texts for a portfolio with the following information:
     Professional Name: ${portfolio.presentationName}
     Profession: ${portfolio.profession || 'Not specified'}
+    Presentation Name: ${portfolio.presentationName || 'Not specified'}
+
+    Contact: ${portfolio.contact || 'No contact information provided'}
     
     Experience: ${portfolio.experiences?.map(exp => 
       `- ${exp.jobTitle} at ${exp.company} (${exp.duration})`
