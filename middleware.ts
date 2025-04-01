@@ -17,8 +17,6 @@ export default async function middleware(request: NextRequest) {
 
   const authToken = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET })
 
-  console.log(authToken)
-
   if (!authToken && publicRoute) {
     return NextResponse.next();
   }

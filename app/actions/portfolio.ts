@@ -15,6 +15,41 @@ const portFolioSchema = z.object({
   email: z.string().optional(),
   profession: z.string().optional(),
   slug: z.string(),
+  skills: z.array(
+    z.object({
+      skill: z.string(),
+      description: z.string().optional()
+    })
+  ).optional().default([]),
+  experiences: z.array(
+    z.object({
+      jobTitle: z.string(),
+      company: z.string(),
+      duration: z.string(),
+      description: z.string().optional(),
+      link: z.string().optional()
+    })
+  ).optional().default([]),
+  projects: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string().optional(),
+      link: z.string().optional()
+    })
+  ).optional().default([]),
+  contact: z.object({
+    whatsapp: z.string().optional(),
+    telephone: z.string().optional(),
+    email: z.string().optional(),
+    github: z.string().optional(),
+    behance: z.string().optional(),
+    linkedin: z.string().optional(),
+    twitter: z.string().optional(),
+    instagram: z.string().optional(),
+    facebook: z.string().optional(),
+    state: z.string().optional(),
+    city: z.string().optional(),
+  }).optional().default({}),
 });
 
 export const createPortfolioAction = async (formData: FieldValues) => {
@@ -50,12 +85,29 @@ export const createPortfolioAction = async (formData: FieldValues) => {
       email: formEmail,
       profession: formProfession,
       slug: formSlug,
+      skills: formData.skills?.map((skill: { skill: string; description?: string }) => ({
+        skill: skill.skill,
+        description: skill.description
+      })) || [],
+      experiences: formData.experiences?.map((exp: { jobTitle: string; company: string; duration: string; description?: string; link?: string }) => ({
+        jobTitle: exp.jobTitle,
+        company: exp.company,
+        duration: exp.duration,
+        description: exp.description,
+        link: exp.link
+      })) || [],
+      projects: formData.projects?.map((project: { title: string; description?: string; link?: string }) => ({
+        title: project.title,
+        description: project.description,
+        link: project.link
+      })) || [],
+      contact: formData.contact || {},
     });
 
     if (!parseResult.success) {
-      throw new Error(parseResult.error.message);
+      throw parseResult.error;
     }
-    const { presentationName, whatsapp, telephone, email, profession, slug } = parseResult.data;
+    const { presentationName, whatsapp, telephone, email, profession, slug, skills, experiences, projects, contact } = parseResult.data;
 
     // First, create the portfolio
     const portfolio = await prisma.portfolio.create({
@@ -69,10 +121,17 @@ export const createPortfolioAction = async (formData: FieldValues) => {
           whatsapp,
           telephone,
           email,
+          ...(contact || {}),
         },
         slug,
         User: { connect: { id: user.id } },
-        customTexts: {} as Prisma.InputJsonValue
+        skills: skills.map((skill: { skill: string; description?: string }) => ({
+          skill: skill.skill,
+          description: skill.description,
+        })),
+        experiences: experiences,
+        projects: projects,
+        customTexts: {},
       },
     });
 
@@ -87,6 +146,14 @@ export const createPortfolioAction = async (formData: FieldValues) => {
     let errorMessage = "";
     if (error instanceof UnauthorizedException) {
       errorMessage = error.message;
+    } else if (error instanceof z.ZodError) {
+      errorMessage = "Erro de validação";
+    } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === 'P2002') {
+        errorMessage = "Este slug já está em uso";
+      } else {
+        errorMessage = "Erro ao criar portfólio";
+      }
     } else {
       errorMessage = "Erro desconhecido";
     }

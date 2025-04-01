@@ -124,7 +124,7 @@ export default function CreatePortfolio() {
 											<FormLabel>Link do portfólio</FormLabel>
 											<FormControl>
 												<div className="flex items-center">
-													<span className="px-3 py-2 bg-muted text-muted-foreground rounded-l-md border">
+													<span className="px-3 py-2 bg-muted text-muted-foreground rounded-l-md border h-10">
 														{window.location.origin}/p/
 													</span>
 													<Input 
