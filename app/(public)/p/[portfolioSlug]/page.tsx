@@ -3,6 +3,7 @@ import "./index.css";
 import { Metadata } from "next";
 import NavMenu from "./components/NavMenu";
 import SkillTabs from "./components/SkillTabs";
+import type { Project } from "@prisma/client";
 
 const defaultUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`
@@ -119,96 +120,56 @@ export default async function PortfolioPage({
 				{/* Projects */}
 				<section id="projects" className="text-center">
 					<h2 className="title appear mb-4">Projects</h2>
-					<p>{customTexts?.curatedDescriptions?.projects ?? 'Estou entusiasmado para iniciar novas colaborações e contribuir para o sucesso de futuras iniciativas.'}</p>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-						{/* Socialmarket */}
-						<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
-							<h5 className="title">Socialmarket</h5>
-							<p className="flex-grow">
-								Social interaction platform between partners, clients, and
-								other interested parties in the process of selling and
-								delivering products, being developed with Nest.js, TypeORM,
-								MySQL, Vue.js, GitHub Actions, and AWS EC2 instances.
-							</p>
-
-							<div className="flex justify-between bottom-0 mt-2 w-full">
-								<a
-									href="https://socialmarket.iza.dev.br/"
-									className="font-semibold hover:text-orange-400"
-									target="_blank">
-									Acessar
-								</a>
-								<a
-									href="https://github.com/izaelgs/socialmarket-front"
-									target="_blank">
-									<i className="devicon-github-original"></i>
-								</a>
-							</div>
+					<p>{customTexts?.curatedDescriptions?.projects ?? 'Excited to start new collaborations and contribute to the success of future initiatives.'}</p>
+					
+					{/* Dynamic Projects Grid */}
+					{portfolio.projects && portfolio.projects.length > 0 ? (
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+							{portfolio.projects.map((project: Project, index: number) => (
+								<div key={index} className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
+									<h5 className="title">{project.title}</h5>
+									{project.description && (
+										<p className="flex-grow mb-2">
+											{project.description}
+										</p>
+									)}
+									<div className="flex justify-between items-center mt-auto pt-2 w-full"> {/* Use mt-auto to push to bottom */}
+										{project.link ? (
+											<a
+												href={project.link}
+												className="font-semibold hover:text-orange-400"
+												target="_blank"
+												rel="noopener noreferrer"> {/* Added rel for security */}
+												Access
+											</a>
+										) : (
+											<span className="font-semibold text-gray-500/70"> {/* Style for unavailable link */}
+												Link unavailable
+											</span>
+										)}
+										{/* Assuming no separate repo link for now based on schema, adjust if needed */}
+										{/* If a repo link exists in data, add it here */}
+										{/* Example: 
+										{project.repositoryUrl && (
+											<a
+												href={project.repositoryUrl}
+												target="_blank"
+												rel="noopener noreferrer">
+												<i className="devicon-github-original text-xl hover:text-orange-400"></i> 
+											</a>
+										)} 
+										*/}
+									</div>
+								</div>
+							))}
 						</div>
-					</div>
+					) : (
+						<p className="my-10 text-gray-500">No projects available yet.</p> // Message when no projects exist
+					)}
 
-					{/* Projetos Antigos */}
-					<h3 className="title appear mb-4 text-xl">Old Projects</h3>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 opacity-75">
-						{/* Web Chat */}
-						<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
-							<h5 className="title">Web Chat</h5>
-							<p className="flex-grow">
-								Real-time communication platform developed with Laravel
-								Jetstream, Laravel WebSockets, and Tailwind CSS
-							</p>
+					{/* Remove Old Static Projects Section if it exists */}
+					{/* Example: If there was a separate "Old Projects" h3 and grid, remove them here */}
 
-							<div className="flex justify-between bottom-0 mt-2 w-full">
-								<span className="font-semibold text-orange-400/50">
-									Discontinued
-								</span>
-								<a href="https://github.com/izaelgs/chat" target="_blank">
-									<i className="devicon-github-original"></i>
-								</a>
-							</div>
-						</div>
-
-						{/* Target Manager */}
-						<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
-							<h5 className="title">Target Manager</h5>
-							<p className="flex-grow">
-								Platform for managing goals and objectives and classification
-								by priority, cost, return, deadline, and urgency calculated
-								automatically
-							</p>
-
-							<div className="flex justify-between bottom-0 mt-2 w-full">
-								<span className="font-semibold text-orange-400/50">
-									Discontinued
-								</span>
-								<a
-									href="https://github.com/izaelgs/targetManager"
-									target="_blank">
-									<i className="devicon-github-original"></i>
-								</a>
-							</div>
-						</div>
-
-						{/* Mini Store */}
-						<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
-							<h5 className="title">Mini Store</h5>
-							<p className="flex-grow">
-								Study material on basic principles for building an e-commerce
-								using Laravel, Vue.js, and the PagSeguro API
-							</p>
-
-							<div className="flex justify-between bottom-0 mt-2 w-full">
-								<span className="font-semibold text-orange-400/50">
-									Discontinued
-								</span>
-								<a
-									href="https://github.com/izaelgs/miniStore"
-									target="_blank">
-									<i className="devicon-github-original"></i>
-								</a>
-							</div>
-						</div>
-					</div>
 				</section>
 			</main>
 
