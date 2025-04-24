@@ -162,11 +162,11 @@ export default async function PortfolioPage({
 						)}
 					</div>
 					<ul className="mb-4 md:mb-0 text-center md:text-start">
+						{/* <li>
+							<p className="text-sm-start my-0">{portfolio?.city} - {portfolio?.state}</p>
+						</li> */}
 						<li>
-							<p className="text-sm-start my-0">Serra - ES</p>
-						</li>
-						<li>
-							<p className="text-sm-start my-0">2024</p>
+							<p className="text-sm-start my-0">{new Date().getFullYear()}</p>
 						</li>
 						{portfolio?.email && (
 							<li>
