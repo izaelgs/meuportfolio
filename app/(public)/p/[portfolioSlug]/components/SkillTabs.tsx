@@ -1,24 +1,21 @@
 "use client";
 
+import { CustomTexts } from "@/types";
 import { Skill } from "@prisma/client";
 // import Image from "next/image";
 
-type CustomTextsProps = {
-	skills?: string;
-};
-
 export default function SkillTabs({
-	customText,
+	customTexts,
 	skills,
 }: {
-	customText?: CustomTextsProps;
+	customTexts: CustomTexts;
 	skills: Skill[];
 }) {
 	return (
 		<section id="skills" className="text-center">
 			<h2 className="title appear">Habilidades</h2>
 			<p className="description appear">
-				{customText?.skills ||
+				{customTexts?.curatedDescriptions?.skills ||
 					"A brief overview of my technical skills and expertise in various technologies."}
 			</p>
 

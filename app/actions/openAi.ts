@@ -17,7 +17,7 @@ export const getPortfolioCustomTextsFromOpenAi = async (portfolioSlug: string) =
     // Create a context string with portfolio information
     const contextPrompt = `
 You will receive the raw portfolio data in JSON format.
-Fill in any missing fields with "Not provided" or empty lists, and deliver the completed JSON:
+Deliver the completed JSON:
 
 ${JSON.stringify(portfolio)}`.trim();
 

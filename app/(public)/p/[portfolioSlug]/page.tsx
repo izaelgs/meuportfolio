@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import NavMenu from "./components/NavMenu";
 import SkillTabs from "./components/SkillTabs";
 import type { Project } from "@prisma/client";
+import { CustomTexts } from "@/types";
 
 const defaultUrl = process.env.VERCEL_URL
 	? `https://${process.env.VERCEL_URL}`
@@ -42,33 +43,6 @@ export async function generateMetadata(
 			type: "website",
 		},
 	};
-}
-
-// Define the interface for customTexts
-interface CustomTexts {
-	personalPresentation?: {
-		formal?: string;
-		informal?: string;
-	};
-	missionVisionValues?: {
-		mission?: string;
-		vision?: string;
-		values?: string;
-	};
-	callToAction?: {
-		contact?: string;
-		hire?: string;    
-	};
-	curatedDescriptions?: {
-		experience?: string;
-		skills?: string;
-		projects?: string;
-	};
-	testimonials?: {
-		client?: string;
-		colleague?: string;
-	};
-	differentiation?: string;
 }
 
 export default async function PortfolioPage({
@@ -114,16 +88,13 @@ export default async function PortfolioPage({
 					</div>
 				</section>
 
-				{/* Skills Section */}
-				<SkillTabs customText={customTexts?.curatedDescriptions} skills={portfolio?.skills || []} />
+				{portfolio?.skills?.length > 0 ? <SkillTabs customTexts={customTexts} skills={portfolio.skills} /> : null}
 
-				{/* Projects */}
-				<section id="projects" className="text-center">
-					<h2 className="title appear mb-4">Projects</h2>
-					<p>{customTexts?.curatedDescriptions?.projects ?? 'Excited to start new collaborations and contribute to the success of future initiatives.'}</p>
-					
-					{/* Dynamic Projects Grid */}
-					{portfolio.projects && portfolio.projects.length > 0 ? (
+				{portfolio.projects && portfolio.projects.length > 0 && (
+					<section id="projects" className="text-center">
+						<h2 className="title appear mb-4">Projects</h2>
+						<p>{customTexts?.curatedDescriptions?.projects ?? 'Excited to start new collaborations and contribute to the success of future initiatives.'}</p>
+						
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 							{portfolio.projects.map((project: Project, index: number) => (
 								<div key={index} className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
@@ -133,17 +104,17 @@ export default async function PortfolioPage({
 											{project.description}
 										</p>
 									)}
-									<div className="flex justify-between items-center mt-auto pt-2 w-full"> {/* Use mt-auto to push to bottom */}
+									<div className="flex justify-between items-center mt-auto pt-2 w-full">
 										{project.link ? (
 											<a
 												href={project.link}
 												className="font-semibold hover:text-orange-400"
 												target="_blank"
-												rel="noopener noreferrer"> {/* Added rel for security */}
+												rel="noopener noreferrer">
 												Access
 											</a>
 										) : (
-											<span className="font-semibold text-gray-500/70"> {/* Style for unavailable link */}
+											<span className="font-semibold text-gray-500/70">
 												Link unavailable
 											</span>
 										)}
@@ -163,14 +134,8 @@ export default async function PortfolioPage({
 								</div>
 							))}
 						</div>
-					) : (
-						<p className="my-10 text-gray-500">No projects available yet.</p> // Message when no projects exist
-					)}
-
-					{/* Remove Old Static Projects Section if it exists */}
-					{/* Example: If there was a separate "Old Projects" h3 and grid, remove them here */}
-
-				</section>
+					</section>
+				)}
 			</main>
 
 			<footer className="md:container mx-auto px-4">
