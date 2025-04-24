@@ -93,7 +93,7 @@ export default async function PortfolioPage({
 				{portfolio.projects && portfolio.projects.length > 0 && (
 					<section id="projects" className="text-center">
 						<h2 className="title appear mb-4">Projects</h2>
-						<p>{customTexts?.curatedDescriptions?.projects ?? 'Excited to start new collaborations and contribute to the success of future initiatives.'}</p>
+						<p className="description appear">{customTexts?.curatedDescriptions?.projects ?? 'Excited to start new collaborations and contribute to the success of future initiatives.'}</p>
 						
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 							{portfolio.projects.map((project: Project, index: number) => (
