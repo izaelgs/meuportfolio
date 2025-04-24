@@ -16,25 +16,10 @@ export const getPortfolioCustomTextsFromOpenAi = async (portfolioSlug: string) =
 
     // Create a context string with portfolio information
     const contextPrompt = `
-    Generate texts for a portfolio with the following information:
-    Professional Name: ${portfolio.presentationName}
-    Profession: ${portfolio.profession || 'Not specified'}
-    Presentation Name: ${portfolio.presentationName || 'Not specified'}
+You will receive the raw portfolio data in JSON format.
+Fill in any missing fields with "Not provided" or empty lists, and deliver the completed JSON:
 
-    Contact: ${portfolio.contact || 'No contact information provided'}
-    
-    Experience: ${portfolio.experiences?.map(exp => 
-      `- ${exp.jobTitle} at ${exp.company} (${exp.duration})`
-    ).join('\n') || 'No experiences listed'}
-    
-    Skills: ${portfolio.skills?.map(skill => 
-      `- ${skill.skill}`
-    ).join('\n') || 'No skills listed'}
-    
-    Projects: ${portfolio.projects?.map(project => 
-      `- ${project.title}`
-    ).join('\n') || 'No projects listed'}
-    `;
+${JSON.stringify(portfolio)}`.trim();
 
     const completion = await openai.chat.completions.create({
       messages: [

@@ -31,11 +31,11 @@ export async function generateMetadata(
 	return {
 		metadataBase: new URL(defaultUrl),
 		title: `${portfolio.presentationName} | ${portfolio.profession || "Portfolio"}`,
-		description: customTexts?.PersonalPresentation?.formal || 
+		description: customTexts?.personalPresentation?.formal || 
 			`${portfolio.presentationName} - ${portfolio.profession || "Professional Portfolio"}. View my skills, projects and get in touch.`,
 		openGraph: {
 			title: `${portfolio.presentationName} | ${portfolio.profession || "Portfolio"}`,
-			description: customTexts?.PersonalPresentation?.formal ||
+			description: customTexts?.personalPresentation?.formal ||
 				`${portfolio.presentationName} - ${portfolio.profession || "Professional Portfolio"}. View my skills, projects and get in touch.`,
 			url: `${defaultUrl}/p/${portfolio.slug}`,
 			type: "website",
@@ -45,29 +45,29 @@ export async function generateMetadata(
 
 // Define the interface for customTexts
 interface CustomTexts {
-	PersonalPresentation?: {
+	personalPresentation?: {
 		formal?: string;
 		informal?: string;
 	};
-	MissionVisionValues?: {
+	missionVisionValues?: {
 		mission?: string;
 		vision?: string;
 		values?: string;
 	};
-	CallToAction?: {
+	callToAction?: {
 		contact?: string;
-		hire?: string;
+		hire?: string;    
 	};
-	CuratedDescriptions?: {
+	curatedDescriptions?: {
 		experience?: string;
 		skills?: string;
 		projects?: string;
 	};
-	Testimonials?: {
+	testimonials?: {
 		client?: string;
 		colleague?: string;
 	};
-	Differentiation?: string;
+	differentiation?: string;
 }
 
 export default async function PortfolioPage({
@@ -100,26 +100,26 @@ export default async function PortfolioPage({
 					<div className="title rounded-4">
 						<h1>{portfolio?.presentationName}</h1>
 						<p className="font-semibold mb-4 opacity-75">
-							{customTexts?.PersonalPresentation?.informal || "Ensure exceptional experiences for your users."}
+							{customTexts?.personalPresentation?.informal || "Ensure exceptional experiences for your users."}
 						</p>
 						{portfolio?.whatsapp && (
 							<a
 								className="ring-2 ring-orange-900 hover:ring-orange-400 font-semibold hover:bg-orange-400 rounded-full px-4 py-2 transition-all duration-300 opacity-75"
 								href={`https://api.whatsapp.com/send/?phone=${portfolio?.whatsapp}&text&type=phone_number&app_absent=0`}
 								target="_blank">
-								{customTexts?.CallToAction?.contact || 'Get in Touch!'}
+								{customTexts?.callToAction?.contact || 'Get in Touch!'}
 							</a>
 						)}
 					</div>
 				</section>
 
 				{/* Skills Section */}
-				<SkillTabs customText={customTexts?.CuratedDescriptions} skills={portfolio?.skills || []} />
+				<SkillTabs customText={customTexts?.curatedDescriptions} skills={portfolio?.skills || []} />
 
 				{/* Projects */}
 				<section id="projects" className="text-center">
 					<h2 className="title appear mb-4">Projects</h2>
-					<p>{customTexts?.CuratedDescriptions?.projects ?? 'Estou entusiasmado para iniciar novas colaborações e contribuir para o sucesso de futuras iniciativas.'}</p>
+					<p>{customTexts?.curatedDescriptions?.projects ?? 'Estou entusiasmado para iniciar novas colaborações e contribuir para o sucesso de futuras iniciativas.'}</p>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
 						{/* Socialmarket */}
 						<div className="ring-1 ring-orange-400 p-4 rounded-lg flex flex-col appear">
