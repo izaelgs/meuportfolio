@@ -10,3 +10,57 @@ body {
     --radius: 0.5rem;
   }
 }
+
+.card-container > .highlight-border-card > .card-border {
+  opacity: 1;
+}
+
+.highlight-border-card {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.highlight-border-card > .card-content {
+  @apply bg-gray-950;
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  margin: 1px;
+  position: relative;
+  z-index: 2;
+}
+
+.highlight-border-card:hover::before {
+  opacity: 1;
+}
+
+.highlight-border-card::before,
+.highlight-border-card > .card-border {
+  opacity: 0;
+  transition: opacity 500ms;
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.highlight-border-card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.06),
+    transparent 40%
+  );
+  z-index: 3;
+}
+
+.highlight-border-card > .card-border {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.3),
+    transparent 40%
+  );
+  z-index: 1;
+}
