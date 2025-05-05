@@ -11,13 +11,13 @@ const defaultUrl = process.env.VERCEL_URL
 	: "http://127.0.0.1:3000";
 
 type Props = {
-	params: { portfolioSlug: string };
+	params: Promise<{ portfolioSlug: string }>;
 };
 
 export async function generateMetadata(
-	{ params }: Props,
+	{ params: paramsPromise }: Props,
 ): Promise<Metadata> {
-	// Fetch portfolio data
+	const params = await paramsPromise;
 	const portfolio = await getPortfolioAction(params.portfolioSlug);
 	
 	if (!portfolio) {
@@ -46,10 +46,9 @@ export async function generateMetadata(
 }
 
 export default async function PortfolioPage({
-	params,
-}: {
-	params: { portfolioSlug: string };
-}) {
+	params: paramsPromise,
+}: Props) {
+	const params = await paramsPromise;
 	const portfolioSlug = params.portfolioSlug;
 	const portfolio = await getPortfolioAction(portfolioSlug);
 	const customTexts = portfolio?.customTexts as CustomTexts;

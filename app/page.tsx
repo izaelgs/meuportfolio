@@ -21,6 +21,7 @@ export const metadata = {
 // Initialize the font
 const jersey10 = Jersey_10({
   weight: '400',
+  subsets: ['latin', 'latin-ext'],
 });
 
 export default async function Index() {
